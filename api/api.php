@@ -4,7 +4,7 @@ if(isset($_POST['submit'])){
     $token = $_POST['token'];
 
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https://api.banditcoding.xyz/honeypot/?chain=$chain&token=$token");
+    curl_setopt($ch, CURLOPT_URL, "https://api.banditcoding.xyz/honeypot/?chain=$chain&address=$token");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     $res = curl_exec($ch);
@@ -15,14 +15,21 @@ if(isset($_POST['submit'])){
     }
 
     $chain = strtoupper($chain);
-    $pot      = $json['data']['honeypot'];
-    $err      = $json['data']['error'];
-    $maxtx    = $json['data']['MaxTaxAmount'];
-    $maxtxBNB = $json['data']['MaxTxAmountBNB'];
-    $buytx    = $json['data']['BuyTax'];
-    $selltx   = $json['data']['SellTax'];
-    $buygas   = $json['data']['BuyGas'];
-    $sellgas  = $json['data']['SellGas'];
+    $symbol   = $json['data']['symbol'];
+    $nameC    = $json['data']['name'];
+    $decimal  = $json['data']['decimals'];
+    $webC     = $json['data']['officialwebsite'];
+    $icon     = $json['data']['icon'];
+        $ex = explode("?",$icon);
+        $link = $ex[0];
+    $pot      = $json['data']['info']['honeypot'];
+    $err      = $json['data']['info']['error'];
+    $maxtx    = $json['data']['info']['MaxTaxAmount'];
+    $maxtxBNB = $json['data']['info']['MaxTxAmountBNB'];
+    $buytx    = $json['data']['info']['BuyTax'];
+    $selltx   = $json['data']['info']['SellTax'];
+    $buygas   = $json['data']['info']['BuyGas'];
+    $sellgas  = $json['data']['info']['SellGas'];
     if(strpos($res, '"honeypot":"No"')){
         $cek = "✅";
     }else{
@@ -55,6 +62,12 @@ if(isset($_POST['submit'])){
 							<table class="table">
 							  <thead class="thead-dark">
 								<tr>
+								  <th>Icon</th>
+								  <th>Name</th>
+								  <th>Symbol</th>
+								  <th>Decimals</th>
+								  <th>Website</th>
+                                  <th>Chain</th>
 								  <th>Honeypot</th>
 								  <th>Contract Address</th>
 								  <th>MaxTaxAmount</th>
@@ -67,7 +80,13 @@ if(isset($_POST['submit'])){
 							  </thead>
 							  <tbody>
 								<tr class="alert" role="alert">
-								<th scope="row">'.$pot.' '.$cek.'</th>
+								<th><img src="'.$link.'" height="50px" widht="50px" /></th>
+								<th>'.$nameC.'</th>
+								<th>'.$symbol.'</th>
+								<th>'.$decimal.'</th>
+								<th>'.$webC.'</th>
+                                <th>'.$chain.'</th>
+								<th>'.$pot.' '.$cek.'</th>
 								<td>'.$token.'</td>
 								<td>'.$maxtx.'</td>
 								<td>'.$maxtxBNB.'</td>
