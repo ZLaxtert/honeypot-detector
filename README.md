@@ -11,5 +11,5 @@ Honeypot detector simulates a buy and a sell transaction to determine if a token
 - Then open localhost
 
 ## Screenshot
-<img src="img/images (11).jpeg">
+<img src="https://banditcoding.xyz/honeypot/img/honeypot.jpg">
 
